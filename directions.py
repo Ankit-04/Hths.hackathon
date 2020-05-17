@@ -15,7 +15,7 @@ def get_directions(origin,destination):
     
     with open('creds.json') as f:
         data =  (json.load(f))
-    request = requests.get('https://maps.googleapis.com/maps/api/directions/json?origin={}&destination={}&key={}'.format(origin,destination,data["googlekey"]))
+    request = requests.get('https://maps.googleapis.com/maps/api/directions/json?origin={}&destination={}&key={}'.format(origin,destination,data["google_map_key"]))
    
     requestJsonText = json.loads(request.text)
     steps = requestJsonText["routes"][0]["legs"][0]["steps"]
@@ -23,12 +23,11 @@ def get_directions(origin,destination):
 
     for step in steps:
         step_string += html.unescape(step['html_instructions'])
-        step_string +=  "\n"
+        step_string +=  "\n\n"
     
     directions = cleanhtml(step_string)
     return directions
 
-print(get_directions("Hollywood","Disneyland"))
 
 
 
